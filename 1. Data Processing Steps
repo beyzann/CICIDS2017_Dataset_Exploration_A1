@@ -1,0 +1,48 @@
+# To be able to perform data preprocessing,
+# firstly, we have to download the CICIDS2017 dataset from a trusted source,
+# such as the Canadian Institute for Cybersecurity website.
+# Once we have the dataset files, we can load them into our preferred data analysis environment.
+
+import pandas as pd
+
+# For loading the dataset
+dataset = pd.read_csv('CICIDS2017.csv')
+
+# We need to check the dataset for missing values and decide how to handle them.
+# Common strategies include removing rows with missing values or imputing missing values.
+
+# Remove rows with missing values
+dataset = dataset.dropna()
+
+# Depending on the research or analysis we're conducting, we may want to perform feature selection to reduce dimensionality
+# and improve the efficiency of our models.
+
+from sklearn.feature_selection import SelectKBest
+from sklearn.feature_selection import chi2
+
+# Select the top k features using the chi-squared test
+k = 10
+X = dataset.drop('target', axis=1)  # We are assuming 'target' is the label.
+y = dataset['target']
+selector = SelectKBest(score_func=chi2, k=k)
+X_new = selector.fit_transform(X, y)
+
+# Depending on our analysis and machine learning models, we need to apply data transformations.
+# Common transformations include feature scaling (e.g., Min-Max scaling or standardization) and one-hot encoding for categorical variables.
+
+from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import OneHotEncoder
+
+# Standardize numerical features
+scaler = StandardScaler()
+X_numerical = scaler.fit_transform(X)
+
+# We will encode categorical features
+encoder = OneHotEncoder()
+X_categorical = encoder.fit_transform(X)
+
+# Before applying machine learning algorithms, it's important to split our dataset into training and testing subsets for model evaluation.
+
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)

@@ -1,0 +1,77 @@
+# Start by calculating summary statistics for the numeric features in the dataset to get a sense of the data distribution. 
+
+
+import pandas as pd
+
+# Load the dataset
+dataset = pd.read_csv('CICIDS2017.csv')
+
+# Display summary statistics
+print(dataset.describe())
+
+
+# Visualize the distribution of numeric features using histograms. We can use libraries like Matplotlib or Seaborn:
+
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Plot histograms for selected numeric features
+sns.set()
+plt.figure(figsize=(12, 6))
+sns.histplot(dataset['feature_name'], kde=True)
+plt.title('Distribution of Feature Name')  
+#We should replace `'feature_name'` with the name of the feature that we want to visualize.
+
+plt.show()
+
+
+# In cybersecurity datasets, it's crucial to understand the distribution of classes, i.e., benign vs. malicious data points. 
+
+ 
+# Plot class distribution
+plt.figure(figsize=(6, 4))
+
+# 'target' represents the class labels.
+sns.countplot(data=dataset, x='target')  
+
+plt.title('Class Distribution')
+plt.show()
+
+
+# A heatmap can help visualize the correlations, while checking for correlations between numeric features.
+
+ 
+# Calculate correlation matrix
+correlation_matrix = dataset.corr()
+
+# Plot a heatmap of correlations
+plt.figure(figsize=(10, 8))
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm')
+plt.title('Correlation Matrix')
+plt.show()
+
+
+# Box plots can be used to visualize the spread and distribution of data, particularly for comparing the distribution of features among different classes:
+
+
+# Box plot of a specific feature by class
+plt.figure(figsize=(10, 6))
+sns.boxplot(data=dataset, x='target', y='feature_name')
+plt.title('Box Plot of Feature Name by Class')
+plt.show()
+
+
+# For a deeper exploration of relationships between multiple features, we can create pair plots:
+ 
+# Create pair plots
+sns.pairplot(dataset, hue='target', markers=['o', 's'], height=2)
+plt.suptitle('Pair Plots by Class', y=1.02)
+plt.show()
+
+
+# For categorical features, examine the value counts to understand the distribution of categories.
+
+# Display value counts for a categorical feature
+print(dataset['categorical_feature'].value_counts())
+
