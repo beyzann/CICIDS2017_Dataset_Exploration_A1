@@ -1,4 +1,4 @@
-# CICIDS2017_Dataset_Exploration_A1
+# CICIDS2017_A1_MIDTERM
 
  The CICIDS2017 dataset is a valuable resource for those working in the field of cybersecurity. Its source, purpose, and relevance in testing and developing intrusion detection systems make it an important tool for research and education in the domain of network security.
 
